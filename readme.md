@@ -4,28 +4,39 @@ This is for test only
 
 ## Documentation
 
-Use the link here to access the API [http://localhost:88](http://localhost:88/)
+Use the link here to access the API [http://20.23.40.24/](http://20.23.40.24/)
 
-### 1. Create User:
-
+### 1. Users:
+### 1.1 Create User:
 ```bash
-curl --location --request POST 'http://localhost:88/users/create/' \
+curl --location --request POST 'http://20.23.40.24/users/create/' \
 --form 'password="password"' \
 --form 'email="user email"' \
 --form 'name="user name"'
 ```
-
-### 2. Create Tag:
-
+### 1.2 Get Users:
 ```bash
-curl --location --request POST 'http://localhost:88/tags/create/' \
---form 'name="tag name"'
+curl --location --request GET 'http://20.23.40.24/users/'
 ```
 
-### 3. Create Question with multi tags:
+### 2. Tags:
+### 2.1 Create Tags:
 
 ```bash
-curl --location --request POST 'http://localhost:88/questions/create/' \
+curl --location --request POST 'http://20.23.40.24/tags/create/' \
+--form 'name="tag name"'
+```
+### 2.1 Get Tags:
+
+```bash
+curl --location --request GET 'http://20.23.40.24/tags/'
+```
+
+### 3. Questions:
+### 3.1 Create Question with multi tags:
+
+```bash
+curl --location --request POST 'http://20.23.40.24/questions/create/' \
 --form 'title="the question title"' \
 --form 'text="the question text will be here"' \
 --form 'create_date="2022-02-02T19:00"' \
@@ -34,29 +45,49 @@ curl --location --request POST 'http://localhost:88/questions/create/' \
 --form 'tags="tag_id"'
 ```
 
-### 4. Create answer for a question:
+### 3.2 Get Questions with related data (comments, tags etc...):
 
 ```bash
-curl --location --request POST 'http://localhost:88/answers/create/' \
+curl --location --request GET 'http://20.23.40.24/questions/'
+```
+
+### 4. Answers:
+### 4.1 Answer submitted questions:
+
+```bash
+curl --location --request POST 'http://20.23.40.24/answers/create/' \
 --form 'text="the answer here"' \
 --form 'create_date="2022-02-02T19:00"' \
 --form 'user="user_id"' \
 --form 'question="question_id"'
 ```
+### 4.2 Get Answers:
+```bash
+curl --location --request GET 'http://20.23.40.24/answers/'
+```
 
-## Usage
+### 5. Comments:
+### 5.1 Create Comment for Question:
+```bash
+curl --location --request POST 'http://20.23.40.24/comments/create/' \
+--form 'text="this is a comment for Question 1"' \
+--form 'user="1"' \
+--form 'belong_to="1"' \
+--form 'question="1"'
+```
 
-```python
-import foobar
+### 5.2 Create Comment for Answer:
+```bash
+curl --location --request POST 'http://20.23.40.24/comments/create/' \
+--form 'text="this is a comment for answer 1"' \
+--form 'user="1"' \
+--form 'belong_to="2"' \
+--form 'answer="1"'
+```
 
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+### 5.2 GET Comments:
+```bash
+curl --location --request GET 'http://20.23.40.24/comments/' \
 ```
 
 ## Contributing
