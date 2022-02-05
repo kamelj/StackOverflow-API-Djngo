@@ -1,0 +1,38 @@
+# The Service LB:
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-lb
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+    name: http
+    targetPort: 88
+  selector:
+    app: stackoverflow-api
+---
+# The Deployment:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stackoverflow-api
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stackoverflow-api
+  template:
+    metadata:
+      labels:
+        app: stackoverflow-api
+    spec:
+      containers:
+      - name: stackoverflow-api
+        image: kamelj/stackoverflow-api:1.3
+        command: ["/bin/sh"]
+        args: ["-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:88"]
+        ports:
+        - containerPort: 88
