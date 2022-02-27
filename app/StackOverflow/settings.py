@@ -61,9 +61,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'stackoverflow-api',
-        'USER': 'postgres',
-        'PASSWORD': 'Abcd4321',
-        'HOST': 'stackoverflow-api.c9xiydjh5tpt.eu-west-3.rds.amazonaws.com',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '5432',
     }
 }
